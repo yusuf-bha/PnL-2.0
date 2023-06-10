@@ -12,7 +12,7 @@ export default async function fetchData(wallet, token) {
       }
   });
 
-  const data = await fetch('https://api.transpose.io/sql', {
+  let data = await fetch('https://api.transpose.io/sql', {
 	  method: 'POST',
 	  body: body,
 	  headers: {
@@ -73,12 +73,12 @@ export default async function fetchData(wallet, token) {
   const output = {
       prices: [],
       pnl: [],
-      lables: []
+      labels: []
   }
   let count = 1;
   for (const ele of results) {
-      if (count === results.length) output.lables.push("Currently");
-      else output.lables.push(`Trade ${count}`);
+      if (count === results.length) output.labels.push("Currently");
+      else output.labels.push(`Trade ${count}`);
       output.prices.push(ele.price);
       output.pnl.push(ele.pnl);
       count++;

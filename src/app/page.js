@@ -1,6 +1,11 @@
+"use client";
 import fetchData from "@/lib/fetchdata";
 import { useState } from "react";
-import Chart from "@/components/chart";
+import MainChart from "@/components/mainChart";
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+
+Chart.register(CategoryScale);
 
 export default function Home() {
   const [displayChart, setDisplayChart] = useState(false);
@@ -11,7 +16,25 @@ export default function Home() {
     const token = event.target.token.value;
     data = await fetchData(wallet, token);
     setDisplayChart(true);
-    setChartData({chart info here})
+    setChartData({
+      labels: data.labels,
+        datasets: [
+          {
+            data: data.prices,
+            label: "Price",
+            borderColor: "#3e95cd",
+            backgroundColor: "#7bb6dd",
+            fill: false
+          },
+          {
+            data: data.pnl,
+            label: "PnL",
+            borderColor: "#3cba9f",
+            backgroundColor: "#71d1bd",
+            fill: false
+          }
+        ]
+    })
   }
   return (
     <>
@@ -20,6 +43,7 @@ export default function Home() {
         <input className="border-blue-300 border rounded" type="text" name="token" placeholder="Token"></input>
         <input className="bg-blue-300 border-2 rounded" type="submit" value="Search"></input>
       </form>
+      <MainChart chartData={chartData}/>
     </>
   )
 }
