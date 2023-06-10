@@ -12,6 +12,7 @@ export default function Home() {
   const [chartData, setChartData] = useState({})
 
   const getData = async (event) => {
+    event.preventDefault();
     const wallet = event.target.wallet.value;
     const token = event.target.token.value;
     data = await fetchData(wallet, token);
@@ -43,7 +44,9 @@ export default function Home() {
         <input className="border-blue-300 border rounded" type="text" name="token" placeholder="Token"></input>
         <input className="bg-blue-300 border-2 rounded" type="submit" value="Search"></input>
       </form>
-      <MainChart chartData={chartData}/>
+      {displayChart && (
+        <MainChart chartData={chartData}/>
+      )}
     </>
   )
 }

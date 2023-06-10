@@ -2,6 +2,8 @@ import coinGecko from 'coingecko-api';
 const coinGeckoClient = new coinGecko();
 
 export default async function fetchData(wallet, token) {
+    console.log(token);
+    console.log(wallet);
   token = token.toUpperCase();
   let results;
   const body = JSON.stringify({
