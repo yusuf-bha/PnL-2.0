@@ -13,7 +13,7 @@ export default function MainChart({ chartData }) {
               text: "Users Gained between 2016-2020"
             },
             legend: {
-              display: false
+              display: true
             }
           }
         }}

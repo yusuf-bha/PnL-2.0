@@ -2,8 +2,6 @@ import coinGecko from 'coingecko-api';
 const coinGeckoClient = new coinGecko();
 
 export default async function fetchData(wallet, token) {
-    console.log(token);
-    console.log(wallet);
   token = token.toUpperCase();
   let results;
   const body = JSON.stringify({
@@ -34,6 +32,7 @@ export default async function fetchData(wallet, token) {
       ele.type = ele.from_address === wallet ? "sell" : "buy";
       ele.quantity = Number(ele.quantity.toString().slice(0, -18));
   }
+ 
   start = results[0].timestamp / 1000;
   end = (Math.floor(new Date().getTime() / 1000));
   token = token.toLowerCase();

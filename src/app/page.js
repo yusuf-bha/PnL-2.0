@@ -15,7 +15,7 @@ export default function Home() {
     event.preventDefault();
     const wallet = event.target.wallet.value;
     const token = event.target.token.value;
-    data = await fetchData(wallet, token);
+    const data = await fetchData(wallet, token);
     setDisplayChart(true);
     setChartData({
       labels: data.labels,
@@ -44,9 +44,7 @@ export default function Home() {
         <input className="border-blue-300 border rounded" type="text" name="token" placeholder="Token"></input>
         <input className="bg-blue-300 border-2 rounded" type="submit" value="Search"></input>
       </form>
-      {displayChart && (
-        <MainChart chartData={chartData}/>
-      )}
+      {displayChart && <MainChart chartData={chartData}/>}
     </>
   )
 }
