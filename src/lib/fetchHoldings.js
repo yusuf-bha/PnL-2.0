@@ -33,6 +33,7 @@ export default async function fetchHoldings(wallet) {
   const second = data.results.slice(0, index);
   const sortedResults = output.results.concat(second);
   output.results = sortedResults;
-
+  output.total = Math.trunc(output.total);
+  
   return output;
 }
