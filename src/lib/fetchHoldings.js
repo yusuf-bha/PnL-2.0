@@ -23,17 +23,20 @@ export default async function fetchHoldings(wallet) {
   let index;
   let firstTime = true;
   for (let i = 0; i < data.results.length; i++) {
+    data.results[i].total_usd_value = Math.trunc(data.results[i].total_usd_value);
+    data.results[i].balance = data.results[i].balance.toFixed(2);
     if (data.results[i].price !== null) {
+      data.results[i].price = data.results[i].price.toFixed(2);
       output.results.push(data.results[i]);
       if (firstTime) index = i;
       firstTime = false;
       output.total += data.results[i].total_usd_value;
-    }
+    } else data.results[i].price = 0;
   }  
   const second = data.results.slice(0, index);
   const sortedResults = output.results.concat(second);
   output.results = sortedResults;
   output.total = Math.trunc(output.total);
-  
+
   return output;
 }

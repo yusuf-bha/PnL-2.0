@@ -18,9 +18,9 @@ export default function walletDisplay({ walletData }) {
           return (
             <tr key={key}>
               <td>{token.name}</td>
-              <td>{token.price}</td>
+              <td>${token.price}</td>
               <td>{token.balance}</td>
-              <td>{token.total_usd_value}</td>
+              <td>${token.total_usd_value}</td>
             </tr>
           )
         })}

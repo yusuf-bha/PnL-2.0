@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2"
 
-export default function MainChart({ chartData }) {
+export default function mainChart({ chartData }) {
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>Line Chart</h2>

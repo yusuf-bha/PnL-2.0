@@ -1,5 +1,5 @@
 
-export default function Navbar() {
+export default function navbar() {
   return (
     <>
       <nav className="w-full h-60px flex items-center relative py-2 bg-gray-400 text-black shadow-md">
