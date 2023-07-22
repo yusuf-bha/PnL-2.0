@@ -2,6 +2,7 @@
 import fetchHoldings from "@/lib/fetchHoldings";
 import { useState } from "react";
 import WalletDisplay from "@/components/walletDisplay";
+import fetchHistoricalValue from "@/lib/fetchHistoricalValue";
 
 export default function Home() {
   const [isDisplayed, setIsDisplayed] = useState(false);
@@ -11,6 +12,7 @@ export default function Home() {
     event.preventDefault();
     const wallet = event.target.wallet.value;
     const data = await fetchHoldings(wallet);
+    const test = await fetchHistoricalValue(wallet);
     setIsDisplayed(true);
     setWalletData(data);
   }
