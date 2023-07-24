@@ -10,7 +10,7 @@ export default function mainChart({ chartData }) {
           plugins: {
             title: {
               display: true,
-              text: "Users Gained between 2016-2020"
+              text: "Token PnL and Price"
             },
             legend: {
               display: true

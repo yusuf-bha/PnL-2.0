@@ -1,3 +1,4 @@
+import { output } from "../../next.config";
 
 export default async function fetchHistoricalValue(wallet) {
   const body = JSON.stringify({
@@ -41,5 +42,14 @@ export default async function fetchHistoricalValue(wallet) {
     }
   })
   data = await data.json();
-  console.log("data", data);
+  const output = {
+    dates: [],
+    values: []
+  }
+  for (let i = 0; i < data.results.length; i++) {
+    output.dates.push(data.results[i].timestamp);
+    output.values.push(data.results[i].value);
+  }
+  console.log("data", output);
+  return output;
 }
