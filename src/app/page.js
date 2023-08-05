@@ -7,6 +7,7 @@ import { CategoryScale } from "chart.js";
 import fetchHistoricalValue from "@/lib/fetchHistoricalValue";
 import HistoricalValueDisplay from "@/components/historicalValueDisplay";
 
+
 Chart.register(CategoryScale);
 
 export default function Home() {
