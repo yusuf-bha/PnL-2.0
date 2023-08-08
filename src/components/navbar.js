@@ -10,7 +10,7 @@ export default function navbar() {
             <li className="list-none mx-4">About</li>
             <li className="list-none mx-4">Contact</li>
             <li className="list-none mx-4">History</li>
-            <UserButton afterSignOutUrl="/"/>
+            <UserButton className="mx-8" afterSignOutUrl="/"/>
           </ul>
         </div>
       </nav>
