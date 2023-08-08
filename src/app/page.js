@@ -6,7 +6,8 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import fetchHistoricalValue from "@/lib/fetchHistoricalValue";
 import HistoricalValueDisplay from "@/components/historicalValueDisplay";
-
+import WalletDisplay from "@/components/walletDisplay";
+import fetchHoldings from "@/lib/fetchHoldings";
 
 Chart.register(CategoryScale);
 
@@ -14,6 +15,7 @@ export default function Home() {
   const [displayChart, setDisplayChart] = useState(false);
   const [chartData, setChartData] = useState({});
   const [historicalChart, setHistoricalChart] = useState({});
+  const [walletData, setWalletData] = useState({});
 
   const getData = async (event) => {
     event.preventDefault();
@@ -21,7 +23,9 @@ export default function Home() {
     const token = event.target.token.value;
     const data = await fetchData(wallet, token);
     const data1 = await fetchHistoricalValue(wallet);
+    const data2 = await fetchHoldings(wallet);
     setDisplayChart(true);
+    setWalletData(data2);
     setHistoricalChart({
       labels: data1.dates,
         datasets: [
@@ -63,6 +67,7 @@ export default function Home() {
       </form>
       {displayChart && <MainChart chartData={chartData}/>}
       {displayChart && <HistoricalValueDisplay chartData={historicalChart}/>}
+      {displayChart && <WalletDisplay walletData={walletData}/>}
     </>
   )
 }
