@@ -3,13 +3,13 @@ import fetchData from "@/lib/fetchPnL";
 import { useState } from "react";
 import MainChart from "@/components/mainChart";
 import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
+import { CategoryScale, LinearScale } from "chart.js";
 import fetchHistoricalValue from "@/lib/fetchHistoricalValue";
 import HistoricalValueDisplay from "@/components/historicalValueDisplay";
 import WalletDisplay from "@/components/walletDisplay";
 import fetchHoldings from "@/lib/fetchHoldings";
 
-Chart.register(CategoryScale);
+Chart.register();
 
 export default function Home() {
   const [displayChart, setDisplayChart] = useState(false);
@@ -46,14 +46,16 @@ export default function Home() {
             label: "Price",
             borderColor: "#3e95cd",
             backgroundColor: "#7bb6dd",
-            fill: false
+            fill: false,
+            yAxisID: 'y'
           },
           {
             data: data.pnl,
             label: "PnL",
             borderColor: "#3cba9f",
             backgroundColor: "#71d1bd",
-            fill: false
+            fill: false,
+            yAxisID: 'y1'
           }
         ]
     })

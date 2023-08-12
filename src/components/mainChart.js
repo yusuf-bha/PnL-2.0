@@ -1,4 +1,4 @@
-import { Line } from "react-chartjs-2"
+import { Line } from "react-chartjs-2";
 
 export default function mainChart({ chartData }) {
   return (
@@ -7,17 +7,41 @@ export default function mainChart({ chartData }) {
       <Line
         data={chartData}
         options={{
+          scales: {
+            y: { // Left Y-Axis
+              position: 'left',
+              ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: Infinity,
+                callback: (value) => {
+                  return value + ' $';
+                },
+              },
+            },
+            y1: { // Right Y-Axis
+              position: 'right',
+              ticks: {
+                beginAtZero: true,
+                min: -100,
+                max: 100,
+                callback: (value) => {
+                  return value + ' %';
+                },
+              },
+            },
+          },
           plugins: {
             title: {
               display: true,
-              text: "Token PnL and Price"
+              text: "Token PnL and Price",
             },
             legend: {
-              display: true
-            }
-          }
+              display: true,
+            },
+          },
         }}
       />
-  </div>
-  )
+    </div>
+  );
 }
