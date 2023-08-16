@@ -23,7 +23,7 @@ export default async function fetchHoldings(wallet) {
   };
 
   for (let i = 0; i < data.results.length; i++) {
-    if (coinsList[data.results[i].name.toLowerCase()]) {
+    if (coinsList[data.results[i].name.toLowerCase()] && data.results[i].price) {
       data.results[i].price = data.results[i].price.toFixed(2);
       data.results[i].total_usd_value = Math.trunc(data.results[i].total_usd_value);
       data.results[i].balance = data.results[i].balance.toFixed(2);

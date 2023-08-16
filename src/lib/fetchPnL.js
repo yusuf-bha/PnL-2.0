@@ -5,7 +5,7 @@ export default async function fetchData(wallet, token) {
   token = token.toUpperCase();
   let results;
   const body = JSON.stringify({
-      sql: "SELECT one.block_number, one.quantity, one.to_address, one.from_address, one.timestamp, two.symbol, (SELECT price FROM ethereum.token_prices etp WHERE etp.token_symbol = two.symbol AND etp.timestamp <= one.timestamp ORDER BY etp.timestamp DESC LIMIT 1) FROM ethereum.token_transfers AS one LEFT JOIN ethereum.tokens AS two ON one.contract_address = two.contract_address WHERE two.symbol = '{{token}}' AND (one.from_address = '{{wallet_address}}' OR one.to_address = '{{wallet_address}}') ORDER BY one.block_number ASC;",
+      sql: "WITH main AS (SELECT one.block_number, one.quantity, one.to_address, one.from_address, one.timestamp, two.symbol, (SELECT price FROM ethereum.token_prices etp WHERE etp.token_symbol = two.symbol AND etp.timestamp <= one.timestamp ORDER BY etp.timestamp DESC LIMIT 1) FROM ethereum.token_transfers AS one LEFT JOIN ethereum.tokens AS two ON one.contract_address = two.contract_address WHERE two.symbol = '{{token}}' AND (one.from_address = '{{wallet_address}}' OR one.to_address = '{{wallet_address}}') UNION ALL (SELECT one.block_number, 0 AS quantity, '000000000000000000000000000000000000000000' AS to_address, '000000000000000000000000000000000000000000' AS from_address, one.timestamp, two.symbol,(SELECT price FROM ethereum.token_prices etp WHERE etp.token_symbol = two.symbol AND etp.timestamp <= one.timestamp ORDER BY etp.timestamp DESC LIMIT 1) FROM ethereum.token_transfers AS one LEFT JOIN ethereum.tokens AS two ON one.contract_address = two.contract_address WHERE two.symbol = '{{token}}' ORDER BY one.timestamp DESC LIMIT 1)) SELECT * FROM main ORDER BY block_number;",
       parameters: {
           token: token,
           wallet_address: wallet
@@ -24,7 +24,8 @@ export default async function fetchData(wallet, token) {
 
   results = data.results;
 
-  for (let i = 0; i < results.length; i++) {
+
+  for (let i = 0; i < results.length - 1; i++) {
       const ele = results[i];
       ele.type = ele.from_address === wallet ? "sell" : "buy";
       ele.quantity = Number(ele.quantity.toString().slice(0, -18));
@@ -47,6 +48,7 @@ export default async function fetchData(wallet, token) {
       } else currentValue = currenTokens * ele.price;
       ele.pnl = Math.floor((((currentValue + soldValue) / boughtValue) * 100) - 100);
   }
+  
 
   const output = {
       prices: [],
