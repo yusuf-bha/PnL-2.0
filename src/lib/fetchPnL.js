@@ -1,5 +1,3 @@
-import coinGecko from 'coingecko-api';
-const coinGeckoClient = new coinGecko();
 
 export default async function fetchData(wallet, token) {
   token = token.toUpperCase();

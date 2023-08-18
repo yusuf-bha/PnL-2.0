@@ -3,7 +3,6 @@ import fetchData from "@/lib/fetchPnL";
 import { useState } from "react";
 import MainChart from "@/components/mainChart";
 import Chart from "chart.js/auto";
-import { CategoryScale, LinearScale } from "chart.js";
 import fetchHistoricalValue from "@/lib/fetchHistoricalValue";
 import HistoricalValueDisplay from "@/components/historicalValueDisplay";
 import WalletDisplay from "@/components/walletDisplay";

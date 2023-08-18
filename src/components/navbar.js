@@ -1,4 +1,5 @@
 import { UserButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function navbar() {
   return (
@@ -9,7 +10,7 @@ export default function navbar() {
           <ul className="flex">
             <li className="list-none mx-4">About</li>
             <li className="list-none mx-4">Contact</li>
-            <li className="list-none mx-4">History</li>
+            <Link className="mx-4" href="/history">History</Link>
             <UserButton className="mx-8" afterSignOutUrl="/"/>
           </ul>
         </div>
