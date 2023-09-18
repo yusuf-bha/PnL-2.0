@@ -1,6 +1,7 @@
-import './globals.css'
-import Navbar from '../components/navbar'
-import { ClerkProvider } from '@clerk/nextjs'
+import './globals.css';
+import Navbar from '../components/navbar';
+import { ClerkProvider } from '@clerk/nextjs';
+import Wallet from '@/components/wallet';
 
 export const metadata = {
   title: 'PnL',
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body className="bg-blue-100">
           <Navbar></Navbar>
+          <Wallet className=''></Wallet>
           {children}
         </body>
       </html>
