@@ -11,8 +11,23 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now())
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  wallets UserWallet[]
+}
+
+model Wallet {
+  id         Int          @id @default(autoincrement())
+  address    String       @unique
+  wallets UserWallet[]
+}
+
+model UserWallet {
+  userId          Int
+  user            User    @relation(fields: [userId], references: [id])
+  walletId        Int
+  wallet          Wallet  @relation(fields: [walletId], references: [id])
+  primary_address Boolean @default(false)
+
+  @@id([userId, walletId])
 }
