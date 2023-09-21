@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id         Int          @id @default(autoincrement())
+  id         String       @id 
   email      String       @unique
   wallets UserWallet[]
 }
@@ -23,7 +23,7 @@ model Wallet {
 }
 
 model UserWallet {
-  userId          Int
+  userId          String
   user            User    @relation(fields: [userId], references: [id])
   walletId        Int
   wallet          Wallet  @relation(fields: [walletId], references: [id])

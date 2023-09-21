@@ -1,5 +1,6 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
+import db from '@/lib/db.js'
  
 export async function POST(req) {
  
@@ -48,13 +49,14 @@ export async function POST(req) {
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
- 
-  // console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
-  // console.log('Webhook body:', body)
-  // works for user.created but user.deleted and user.updated different format
-  const test = evt.data.email_addresses[0].email_address;
-  console.log(test);
- 
+  // test to see if the db is syncing and all the methods on the db class are working as they should
+  if (eventType === "user.created") {
+    const email = evt.data.email_addresses[0].email_address;
+    const user = db.createUser(id, email);
+  } else if (eventType === "user.deleted") {
+    const deletedUser = db.deleteUser(id); 
+  }
+
   return new Response('', { status: 201 })
 }
  
