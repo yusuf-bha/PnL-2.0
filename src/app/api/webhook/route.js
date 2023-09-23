@@ -49,7 +49,7 @@ export async function POST(req) {
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
-  // test to see if the db is syncing and all the methods on the db class are working as they should
+  
   if (eventType === "user.created") {
     const email = evt.data.email_addresses[0].email_address;
     const user = db.createUser(id, email);

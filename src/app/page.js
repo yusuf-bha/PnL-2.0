@@ -8,6 +8,7 @@ import HistoricalValueDisplay from "@/components/historicalValueDisplay";
 import WalletDisplay from "@/components/walletDisplay";
 import fetchHoldings from "@/lib/fetchHoldings";
 
+
 Chart.register();
 
 export default function Home() {
@@ -15,7 +16,6 @@ export default function Home() {
   const [chartData, setChartData] = useState({});
   const [historicalChart, setHistoricalChart] = useState({});
   const [walletData, setWalletData] = useState({});
-
   const getData = async (event) => {
     event.preventDefault();
     const wallet = event.target.wallet.value;

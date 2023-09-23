@@ -1,14 +1,27 @@
 "use client"
-import React from 'react'
-import { useState, useEffect, useRef } from 'react'
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function Wallet() {
-  // get list of wallets from database with useeffect
-  const [wallets, setWallets] = useState(['wallet1', 'wallet2', 'wallet3']);
-  const [currWallet, setCurrWallet] = useState(wallets[0]);
+  const [wallets, setWallets] = useState([]);
+  const [currWallet, setCurrWallet] = useState("");
   const [addBox, setAddBox] = useState(false);
   const [showWallets, setShowWallets] = useState(false);
   const newWalletRef = useRef();
+  useEffect(() => {
+    const wallets = fetchWallets();
+    if (wallets[0]) {
+      setWallets(wallets);
+      setCurrWallet(wallets[0]);
+    } else {
+      setCurrWallet(["No Wallet"]);
+    }
+    
+  }, []);
+  const fetchWallets = async () => {
+    const wallets = await fetch('/api/wallets');
+    return wallets;
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     const newWallet = newWalletRef.current.value;

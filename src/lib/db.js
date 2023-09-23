@@ -74,4 +74,14 @@ export default class Database {
 
     return deletedWallet;
   }
+
+  static async fetchWallets(id) {
+    const wallets = await prisma.userWallet.findMany({
+      where: {
+        userId: id
+      }
+    })
+
+    return wallets;
+  }
 }
